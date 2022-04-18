@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class DnaRegister {
+public class DnaRegisterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "id_dna_register", nullable = false, unique = true)
+    @Column(name= "id", nullable = false, unique = true)
     private Long id;
 
     private LocalDateTime created;

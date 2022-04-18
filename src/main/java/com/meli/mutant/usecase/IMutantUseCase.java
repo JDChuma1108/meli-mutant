@@ -1,5 +1,9 @@
 package com.meli.mutant.usecase;
 
+import com.meli.mutant.dto.StatsDTO;
+import org.springframework.http.ResponseEntity;
+
 public interface IMutantUseCase {
-    boolean isMutant(String[] dna);
+    ResponseEntity<Boolean> isMutant(String[] dna);
+    StatsDTO stats();
 }
