@@ -32,19 +32,17 @@ public class MutantServiceImplement implements IMutantService{
     public boolean isMutant(String[] dna) {
         Boolean isMutant = false;
         Integer totalSequence = 0;
+        List<String> dnaList = new ArrayList<>();
         String dnaType = DnaTypeEnum.HUMAN.getValue();
 
         //Se convierte el array a lista
-        List<String> dnaList = Arrays.stream(dna).collect(Collectors.toList());
+        Arrays.stream(dna).forEach(row -> dnaList.add(row.toUpperCase()));
 
         //Si hay alguna secuencia con una dimensión incorrecta se retorna false
         if(Boolean.FALSE.equals(validateDimension(dnaList))) return isMutant;
 
         //Si hay algún elemento incorrecto se retorna false
         if(Boolean.FALSE.equals(validateElements(dnaList))) return isMutant;
-
-        //Se convierten las secuencias a mayúsculas
-        dnaList.forEach(String::toUpperCase);
 
         //Se recorre la lista para encontrar las secuencias
         for (Integer listPosition = 0; listPosition < dnaList.size(); listPosition++) {
@@ -97,6 +95,15 @@ public class MutantServiceImplement implements IMutantService{
 
     /**
      *
+     * @return Registros verificados guardados en la base de datos
+     */
+    @Override
+    public List<DnaRegisterEntity> getRegisters() {
+        return dnaRegisterRepository.findAll();
+    }
+
+    /**
+     *
      * @param dnaList Lista con cadenas de ADN
      * @param row Cadena de ADN sobre la que se están calculando las secuencias
      * @param letter Letra sobre la que se está iterando
@@ -114,7 +121,6 @@ public class MutantServiceImplement implements IMutantService{
                 letter == row.charAt(rowPosition+2) &&
                 letter == row.charAt(rowPosition+3)){
             sequenceCount += 1;
-            if(sequenceCount >= COUNT_SEQUENCE) return sequenceCount;
         }
 
         if(verticalPosition >= SEQUENCE_ELEMENTS &&

@@ -1,15 +1,14 @@
 package com.meli.mutant.controller;
 
 import com.meli.mutant.dto.StatsDTO;
+import com.meli.mutant.entity.DnaRegisterEntity;
 import com.meli.mutant.usecase.IMutantUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,9 +23,14 @@ public class MutantRestController {
         return iMutantUseCase.isMutant(dna.get("dna"));
     }
 
-    @PostMapping(value = "/stats", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/stats", produces = MediaType.APPLICATION_JSON_VALUE)
     StatsDTO stats(){
         return iMutantUseCase.stats();
+    }
+
+    @GetMapping(value = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<DnaRegisterEntity> registers(){
+        return iMutantUseCase.registers();
     }
 
 }
