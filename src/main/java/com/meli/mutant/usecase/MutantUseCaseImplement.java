@@ -37,7 +37,7 @@ public class MutantUseCaseImplement implements IMutantUseCase {
     public StatsDTO stats() {
         long countMutantDna = getCountDnaRegister(DnaTypeEnum.MUTANT.getValue());
         long countHumanDna = getCountDnaRegister(DnaTypeEnum.HUMAN.getValue());
-        double ratio = (double) countMutantDna/countHumanDna;
+        double ratio = countHumanDna == 0l ? 0.0 : (double) countMutantDna/countHumanDna;
 
 
         return StatsDTO.builder()
